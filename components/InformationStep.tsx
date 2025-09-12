@@ -1,12 +1,12 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useForm } from '@tanstack/react-form';
-import { Button } from '@/components/ui/button';
+import { mockUser } from '@/lib/data';
+import { useCartStore } from '@/lib/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useCartStore } from '@/lib/store';
-import { mockUser } from '@/lib/data';
-import { useEffect } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface InformationStepProps {
   onNext: () => void;
@@ -21,6 +21,9 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
       firstName: userInfo.firstName || mockUser.firstName,
       lastName: userInfo.lastName || mockUser.lastName,
       email: userInfo.email || mockUser.email,
+    },
+    validators: {
+
     },
     onSubmit: async ({ value }) => {
       setUserInfo(value);

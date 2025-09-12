@@ -100,7 +100,6 @@ export const cities: City[] = [
   }
 ];
 
-// Mock user data
 export const mockUser = {
   firstName: "Donald",
   lastName: "McDuck",

@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { SummaryStep } from './SummaryStep';
+import { DeliveryStep } from './DeliveryStep';
 import { CheckoutSteps } from './CheckoutSteps';
 import { InformationStep } from './InformationStep';
-import { DeliveryStep } from './DeliveryStep';
-import { SummaryStep } from './SummaryStep';
 
 interface CheckoutPageProps {
   onBackToCart: () => void;

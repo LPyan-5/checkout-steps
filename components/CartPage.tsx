@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useCartStore } from '@/lib/store';
-import { cartItems } from '@/lib/data';
 import { Trash2 } from 'lucide-react';
+import { cartItems } from '@/lib/data';
+import { useCartStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 

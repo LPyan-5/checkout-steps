@@ -1,8 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useForm } from '@tanstack/react-form';
-import { mockUser } from '@/lib/data';
 import { useCartStore } from '@/lib/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,26 +16,15 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
 
   const form = useForm({
     defaultValues: {
-      firstName: userInfo.firstName || mockUser.firstName,
-      lastName: userInfo.lastName || mockUser.lastName,
-      email: userInfo.email || mockUser.email,
+      firstName: userInfo.firstName || '',
+      lastName: userInfo.lastName || '',
+      email: userInfo.email || '',
     },
-    validators: {},
     onSubmit: async ({ value }) => {
       setUserInfo(value);
       onNext();
     },
   });
-
-  // Pre-fill with mock data on mount
-  useEffect(() => {
-    if (!userInfo.firstName && !userInfo.lastName && !userInfo.email) {
-      setUserInfo(mockUser);
-      form.setFieldValue('firstName', mockUser.firstName);
-      form.setFieldValue('lastName', mockUser.lastName);
-      form.setFieldValue('email', mockUser.email);
-    }
-  }, [userInfo, setUserInfo, form]);
 
   return (
     <div className="space-y-6">
@@ -45,6 +32,7 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
+
           form.handleSubmit();
         }}
         className="space-y-4"

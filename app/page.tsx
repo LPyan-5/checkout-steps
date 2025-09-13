@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { fetchUserInfo } from '@/lib/api';
+import { useCartStore } from '@/lib/store';
 import { CheckoutPage } from '@/components/CheckoutPage';
 import { CartPage } from '@/components/CardPage/CartPage';
 
@@ -8,6 +10,8 @@ type AppState = 'cart' | 'checkout' | 'complete';
 
 export default function Home() {
   const [appState, setAppState] = useState<AppState>('cart');
+
+  const { setUserInfo } = useCartStore();
 
   const handleCheckout = () => {
     setAppState('checkout');
@@ -24,6 +28,12 @@ export default function Home() {
   const handleNewOrder = () => {
     setAppState('cart');
   };
+
+  useEffect(() => {
+    fetchUserInfo().then((user) => {
+      if (user) setUserInfo(user);
+    });
+  }, [setUserInfo]);
 
   if (appState === 'complete') {
     return (
@@ -45,6 +55,7 @@ export default function Home() {
   return (
     <div className="bg-black/75">
       {appState === 'cart' && <CartPage onCheckout={handleCheckout} />}
+
       {appState === 'checkout' && (
         <CheckoutPage onBackToCart={handleBackToCart} onOrderComplete={handleOrderComplete} />
       )}

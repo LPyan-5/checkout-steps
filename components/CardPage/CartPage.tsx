@@ -44,12 +44,14 @@ export function CartPage({ onCheckout }: CartPageProps) {
         <CardHeader>
           <CardTitle className="text-4xl font-bold text-left">Cart</CardTitle>
         </CardHeader>
+
         <CardContent className="pt-0 flex flex-col">
           {loading ? (
             <CartPageLoading />
           ) : error ? (
             <div className="flex flex-col items-center gap-4 text-center py-8 text-red-500">
               {error}
+
               <Button onClick={() => window.location.reload()}>Retry</Button>
             </div>
           ) : !items.length ? (
@@ -61,11 +63,13 @@ export function CartPage({ onCheckout }: CartPageProps) {
               {items.map((item) => (
                 <CartItem key={item.id} item={item} removeItem={removeItem} />
               ))}
+
               <div className="pt-4 mt-auto">
                 <div className="flex justify-between items-center mb-4">
                   <span className="font-medium">Total:</span>
                   <span className="font-bold">{totalPrice}$</span>
                 </div>
+
                 <Button
                   onClick={onCheckout}
                   className="w-full bg-black text-white hover:bg-gray-800"

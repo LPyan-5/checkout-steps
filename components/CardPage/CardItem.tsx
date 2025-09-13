@@ -14,12 +14,15 @@ export function CartItem({ item, removeItem }: CartItemProps) {
       <div className="w-16 h-16 bg-gray-300 rounded-lg overflow-hidden">
         <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
       </div>
+
       <div className="flex-1 min-w-0 gap-1">
         <h3 className="font-medium text-sm truncate mb-2">
           {item.name} - {item.price}$
         </h3>
+
         <p className="text-xs text-gray-600">By: {item.manufacturer}</p>
       </div>
+
       <Button
         variant="outline"
         size="sm"

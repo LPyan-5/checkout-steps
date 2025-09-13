@@ -1,6 +1,24 @@
-import type { CartItem } from '@/lib/type';
+import type { CartItem, UserInfo } from '@/lib/type';
 
-import { cartItems } from '@/lib/data';
+import { cartItems, mockUser } from '@/lib/data';
+
+export async function fetchUserInfo(): Promise<UserInfo | null> {
+  return new Promise((resolve) => {
+    if (!localStorage.getItem('token')) {
+      localStorage.setItem('token', 'mocked-token-123');
+    }
+
+    setTimeout(() => {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        resolve(mockUser);
+      } else {
+        resolve(null);
+      }
+    }, 500);
+  });
+}
 
 export async function fetchCartItems(): Promise<CartItem[]> {
   return new Promise((resolve, reject) => {

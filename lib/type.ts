@@ -7,6 +7,12 @@ export type CartItem = {
   quantity?: number;
 };
 
+export type UserInfo = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
 export type City = {
   id: number;
   name: string;

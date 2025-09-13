@@ -1,19 +1,22 @@
-import type { City, CartItem, DeliveryType } from '@/lib/type';
+import type { City, CartItem, DeliveryOption } from '@/lib/type';
 
 import { create } from 'zustand';
 
 interface CartStore {
   items: CartItem[];
+  cities: City[];
   selectedCity: City | null;
-  selectedDelivery: DeliveryType | null;
+  selectedDelivery: DeliveryOption | null;
   userInfo: {
     firstName: string;
     lastName: string;
     email: string;
   };
   removeItem: (id: number) => void;
+  setItems: (data: CartItem[]) => void;
+  setCities: (data: City[]) => void;
   setSelectedCity: (city: City) => void;
-  setSelectedDelivery: (delivery: DeliveryType) => void;
+  setSelectedDelivery: (delivery: DeliveryOption) => void;
   setUserInfo: (info: { firstName: string; lastName: string; email: string }) => void;
   getTotalPrice: () => number;
   getFinalTotal: () => number;
@@ -21,6 +24,7 @@ interface CartStore {
 
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
+  cities: [],
   selectedCity: null,
   selectedDelivery: null,
   userInfo: {
@@ -28,6 +32,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
     lastName: '',
     email: '',
   },
+  setItems: (data) => set({ items: data }),
+  setCities: (data) => set({ cities: data }),
   removeItem: (id) =>
     set((state) => ({
       items: state.items.filter((item) => item.id !== id),

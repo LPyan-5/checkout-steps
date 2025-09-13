@@ -13,7 +13,7 @@ interface CartPageProps {
 }
 
 export function CartPage({ onCheckout }: CartPageProps) {
-  const { items, removeItem } = useCartStore();
+  const { items, setItems, removeItem } = useCartStore();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,14 +29,14 @@ export function CartPage({ onCheckout }: CartPageProps) {
 
       fetchCartItems()
         .then((data) => {
-          useCartStore.setState({ items: data });
+          setItems(data);
         })
         .catch((err) => setError(err.message))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [items.length]);
+  }, [items.length, setItems]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">

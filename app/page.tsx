@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import { fetchUserInfo } from '@/lib/api';
 import { useCartStore } from '@/lib/store';
-import { CheckoutPage } from '@/components/CheckoutPage';
 import { CartPage } from '@/components/CardPage/CartPage';
+import { CheckoutPage } from '@/components/CheckoutPage/CheckoutPage';
 
 type AppState = 'cart' | 'checkout' | 'complete';
 

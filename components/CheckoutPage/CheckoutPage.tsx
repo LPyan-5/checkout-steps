@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { SummaryStep } from '@/components/SummaryStep';
+import { DeliveryStep } from '@/components/DeliveryStep/DeliveryStep';
+import { InformationStep } from '@/components/InformationStep';
+import { CheckoutSteps } from '@/components/CheckoutPage/CheckoutSteps';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { SummaryStep } from './SummaryStep';
-import { DeliveryStep } from './DeliveryStep';
-import { CheckoutSteps } from './CheckoutSteps';
-import { InformationStep } from './InformationStep';
 
 interface CheckoutPageProps {
   onBackToCart: () => void;

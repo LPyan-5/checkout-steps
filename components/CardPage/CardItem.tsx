@@ -3,10 +3,10 @@ import type { CartItem } from '@/lib/type';
 import { Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-type CartItemProps = {
+interface CartItemProps {
   item: CartItem;
   removeItem: (id: number) => void;
-};
+}
 
 export function CartItem({ item, removeItem }: CartItemProps) {
   return (

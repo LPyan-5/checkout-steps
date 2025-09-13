@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 export type CartItem = {
   id: number;
   name: string;
@@ -23,8 +25,15 @@ export type City = {
   };
 };
 
-export type DeliveryType = {
-  type: 'fast' | 'regular' | 'slow';
+export enum DeliveryTypes {
+  Fast = 'fast',
+  Regular = 'regular',
+  Slow = 'slow',
+}
+
+export type DeliveryOption = {
+  type: DeliveryTypes;
   price: number;
-  label: string;
+  disabled: boolean;
+  label: ReactElement;
 };

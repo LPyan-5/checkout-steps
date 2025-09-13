@@ -7,7 +7,13 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { cities, City, DeliveryType } from '@/lib/data';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface DeliveryStepProps {
   onNext: () => void;
@@ -26,14 +32,15 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
     },
     onSubmit: async ({ value }) => {
       if (!currentCity || !currentDelivery) return;
-      
-      const deliveryPrice = currentCity.delivery[currentDelivery as keyof typeof currentCity.delivery] || 0;
+
+      const deliveryPrice =
+        currentCity.delivery[currentDelivery as keyof typeof currentCity.delivery] || 0;
       const deliveryOption: DeliveryType = {
         type: currentDelivery as 'fast' | 'regular' | 'slow',
         price: deliveryPrice,
-        label: `${currentDelivery.charAt(0).toUpperCase() + currentDelivery.slice(1)} - ${deliveryPrice === 0 ? 'Free' : `$${deliveryPrice}`}`
+        label: `${currentDelivery.charAt(0).toUpperCase() + currentDelivery.slice(1)} - ${deliveryPrice === 0 ? 'Free' : `$${deliveryPrice}`}`,
       };
-      
+
       setSelectedCity(currentCity);
       setSelectedDelivery(deliveryOption);
       onNext();
@@ -41,7 +48,7 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
   });
 
   const handleCityChange = (cityId: string) => {
-    const city = cities.find(c => c.id.toString() === cityId);
+    const city = cities.find((c) => c.id.toString() === cityId);
     if (city) {
       setCurrentCity(city);
       setCurrentDelivery('');
@@ -57,27 +64,28 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
 
   const getAvailableDeliveryOptions = () => {
     if (!currentCity) return [];
-    
+
     const options = [];
     if (currentCity.delivery.fast !== null) {
       options.push({
         type: 'fast',
         price: currentCity.delivery.fast,
-        label: `Fast - $${currentCity.delivery.fast}`
+        label: `Fast - $${currentCity.delivery.fast}`,
       });
     }
     if (currentCity.delivery.regular !== null) {
       options.push({
         type: 'regular',
         price: currentCity.delivery.regular,
-        label: `Regular - $${currentCity.delivery.regular}`
+        label: `Regular - $${currentCity.delivery.regular}`,
       });
     }
     if (currentCity.delivery.slow !== null) {
       options.push({
         type: 'slow',
         price: currentCity.delivery.slow,
-        label: currentCity.delivery.slow === 0 ? 'Slow - Free' : `Slow - $${currentCity.delivery.slow}`
+        label:
+          currentCity.delivery.slow === 0 ? 'Slow - Free' : `Slow - $${currentCity.delivery.slow}`,
       });
     }
     return options;
@@ -114,8 +122,8 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
         {currentCity && (
           <div className="space-y-3">
             <Label>Delivery type</Label>
-            <RadioGroup 
-              value={currentDelivery} 
+            <RadioGroup
+              value={currentDelivery}
               onValueChange={handleDeliveryChange}
               className="space-y-3"
             >
@@ -132,19 +140,14 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
         )}
 
         <div className="space-y-3 pt-4">
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={!canSubmit}
             className="w-full bg-black text-white hover:bg-gray-800 disabled:opacity-50"
           >
             To summary
           </Button>
-          <Button 
-            type="button"
-            variant="ghost" 
-            onClick={onBack}
-            className="w-full"
-          >
+          <Button type="button" variant="ghost" onClick={onBack} className="w-full">
             Back to information
           </Button>
         </div>

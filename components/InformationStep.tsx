@@ -22,9 +22,7 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
       lastName: userInfo.lastName || mockUser.lastName,
       email: userInfo.email || mockUser.email,
     },
-    validators: {
-
-    },
+    validators: {},
     onSubmit: async ({ value }) => {
       setUserInfo(value);
       onNext();
@@ -54,8 +52,7 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
         <form.Field
           name="firstName"
           validators={{
-            onChange: ({ value }) =>
-              !value ? 'First name is required' : undefined,
+            onChange: ({ value }) => (!value ? 'First name is required' : undefined),
           }}
         >
           {(field) => (
@@ -78,8 +75,7 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
         <form.Field
           name="lastName"
           validators={{
-            onChange: ({ value }) =>
-              !value ? 'Last name is required' : undefined,
+            onChange: ({ value }) => (!value ? 'Last name is required' : undefined),
           }}
         >
           {(field) => (
@@ -130,18 +126,10 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
         </form.Field>
 
         <div className="space-y-3 pt-4">
-          <Button 
-            type="submit" 
-            className="w-full bg-black text-white hover:bg-gray-800"
-          >
+          <Button type="submit" className="w-full bg-black text-white hover:bg-gray-800">
             To delivery step
           </Button>
-          <Button 
-            type="button"
-            variant="ghost" 
-            onClick={onBack}
-            className="w-full"
-          >
+          <Button type="button" variant="ghost" onClick={onBack} className="w-full">
             Back to cart
           </Button>
         </div>

@@ -25,11 +25,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
   userInfo: {
     firstName: '',
     lastName: '',
-    email: ''
+    email: '',
   },
   removeItem: (id) =>
     set((state) => ({
-      items: state.items.filter((item) => item.id !== id)
+      items: state.items.filter((item) => item.id !== id),
     })),
   setSelectedCity: (city) => set({ selectedCity: city, selectedDelivery: null }),
   setSelectedDelivery: (delivery) => set({ selectedDelivery: delivery }),
@@ -45,5 +45,5 @@ export const useCartStore = create<CartStore>((set, get) => ({
     const deliveryPrice = state.selectedDelivery?.price || 0;
 
     return itemsTotal + deliveryPrice;
-  }
+  },
 }));

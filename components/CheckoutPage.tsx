@@ -47,9 +47,7 @@ export function CheckoutPage({ onBackToCart, onOrderComplete }: CheckoutPageProp
           <CardTitle className="text-3xl font-bold text-left">Checkout</CardTitle>
           <CheckoutSteps currentStep={currentStep} />
         </CardHeader>
-        <CardContent>
-          {renderStep()}
-        </CardContent>
+        <CardContent>{renderStep()}</CardContent>
       </Card>
     </div>
   );

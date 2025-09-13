@@ -31,13 +31,14 @@ export function CartPage({ onCheckout }: CartPageProps) {
         </CardHeader>
         <CardContent className="pt-0">
           {items.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              Your cart is empty
-            </div>
+            <div className="text-center py-8 text-gray-500">Your cart is empty</div>
           ) : (
             <>
               {items.map((item) => (
-                <div key={item.id} className="flex items-center space-x-4 py-4 bg-white rounded-lg border-b">
+                <div
+                  key={item.id}
+                  className="flex items-center space-x-4 py-4 bg-white rounded-lg border-b"
+                >
                   <div className="w-16 h-16 bg-gray-300 rounded-lg overflow-hidden">
                     <img
                       src={item.imageUrl}
@@ -66,8 +67,8 @@ export function CartPage({ onCheckout }: CartPageProps) {
                   <span className="font-medium">Total:</span>
                   <span className="font-bold">{totalPrice.toFixed(2)}$</span>
                 </div>
-                <Button 
-                  onClick={onCheckout} 
+                <Button
+                  onClick={onCheckout}
                   className="w-full bg-black text-white hover:bg-gray-800"
                 >
                   Go to checkout

@@ -10,7 +10,8 @@ interface SummaryStepProps {
 }
 
 export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
-  const { items, userInfo, selectedCity, selectedDelivery, getTotalPrice, getFinalTotal } = useCartStore();
+  const { items, userInfo, selectedCity, selectedDelivery, getTotalPrice, getFinalTotal } =
+    useCartStore();
 
   const itemsTotal = getTotalPrice();
   const deliveryPrice = selectedDelivery?.price || 0;
@@ -23,9 +24,9 @@ export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
       userInfo,
       city: selectedCity?.name,
       delivery: selectedDelivery,
-      total: finalTotal
+      total: finalTotal,
     });
-    
+
     alert('Order placed successfully! (This is a mock implementation)');
     onComplete();
   };
@@ -36,7 +37,9 @@ export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
         <div>
           <h3 className="font-medium mb-2">Customer Information</h3>
           <div className="text-sm text-gray-600 space-y-1">
-            <p>{userInfo.firstName} {userInfo.lastName}</p>
+            <p>
+              {userInfo.firstName} {userInfo.lastName}
+            </p>
             <p>{userInfo.email}</p>
           </div>
         </div>
@@ -58,7 +61,9 @@ export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
           <div className="space-y-2">
             {items.map((item) => (
               <div key={item.id} className="flex justify-between text-sm">
-                <span>{item.name} × {item.quantity || 1}</span>
+                <span>
+                  {item.name} × {item.quantity || 1}
+                </span>
                 <span>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
               </div>
             ))}
@@ -81,18 +86,10 @@ export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
       </div>
 
       <div className="space-y-3 pt-4">
-        <Button 
-          onClick={handlePlaceOrder}
-          className="w-full bg-black text-white hover:bg-gray-800"
-        >
+        <Button onClick={handlePlaceOrder} className="w-full bg-black text-white hover:bg-gray-800">
           Place Order
         </Button>
-        <Button 
-          type="button"
-          variant="ghost" 
-          onClick={onBack}
-          className="w-full"
-        >
+        <Button type="button" variant="ghost" onClick={onBack} className="w-full">
           Back to delivery
         </Button>
       </div>

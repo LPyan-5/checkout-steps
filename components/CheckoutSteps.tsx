@@ -15,12 +15,12 @@ export function CheckoutSteps({ currentStep }: CheckoutStepsProps) {
         <div
           key={step}
           className={cn(
-            "text-sm font-medium pb-2 border-b-2 transition-colors",
+            'text-sm font-medium pb-2 border-b-2 transition-colors',
             index === currentStep
-              ? "text-black border-black"
+              ? 'text-black border-black'
               : index < currentStep
-              ? "text-green-600 border-green-600"
-              : "text-gray-400 border-transparent"
+                ? 'text-green-600 border-green-600'
+                : 'text-gray-400 border-transparent'
           )}
         >
           {step}

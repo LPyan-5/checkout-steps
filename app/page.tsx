@@ -44,14 +44,9 @@ export default function Home() {
 
   return (
     <div className="bg-black/75">
-      {appState === 'cart' && (
-        <CartPage onCheckout={handleCheckout} />
-      )}
+      {appState === 'cart' && <CartPage onCheckout={handleCheckout} />}
       {appState === 'checkout' && (
-        <CheckoutPage 
-          onBackToCart={handleBackToCart} 
-          onOrderComplete={handleOrderComplete} 
-        />
+        <CheckoutPage onBackToCart={handleBackToCart} onOrderComplete={handleOrderComplete} />
       )}
     </div>
   );

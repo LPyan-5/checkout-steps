@@ -1,5 +1,6 @@
+import type { City, CartItem, DeliveryType } from '@/lib/type';
+
 import { create } from 'zustand';
-import { CartItem, City, DeliveryType } from './data';
 
 interface CartStore {
   items: CartItem[];

@@ -1,27 +1,4 @@
-export interface CartItem {
-  id: number;
-  name: string;
-  manufacturer: string;
-  price: number;
-  imageUrl: string;
-  quantity?: number;
-}
-
-export interface City {
-  id: number;
-  name: string;
-  delivery: {
-    fast: number | null;
-    regular: number | null;
-    slow: number | null;
-  };
-}
-
-export interface DeliveryType {
-  type: 'fast' | 'regular' | 'slow';
-  price: number;
-  label: string;
-}
+import type { CartItem, City } from '@/lib/type';
 
 export const cartItems: CartItem[] = [
   {

@@ -1,18 +1,20 @@
 'use client';
 
+import type { City, DeliveryType } from '@/lib/type';
+
 import { useState } from 'react';
 import { useForm } from '@tanstack/react-form';
+import { cities } from '@/lib/data';
 import { useCartStore } from '@/lib/store';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { cities, City, DeliveryType } from '@/lib/data';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from '@/components/ui/select';
 
 interface DeliveryStepProps {

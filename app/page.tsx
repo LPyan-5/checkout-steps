@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { CartPage } from '@/components/CartPage';
 import { CheckoutPage } from '@/components/CheckoutPage';
+import { CartPage } from '@/components/CardPage/CartPage';
 
 type AppState = 'cart' | 'checkout' | 'complete';
 

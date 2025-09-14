@@ -3,8 +3,8 @@
 import type { FormEvent } from 'react';
 
 import { useCallback } from 'react';
+import { useStore } from '@/lib/store';
 import { useForm } from '@tanstack/react-form';
-import { useCartStore } from '@/lib/store';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -14,8 +14,8 @@ interface InformationStepProps {
   onBack: () => void;
 }
 
-export function InformationStep({ onNext, onBack }: InformationStepProps) {
-  const { userInfo, setUserInfo } = useCartStore();
+const InformationStep = ({ onNext, onBack }: InformationStepProps) => {
+  const { userInfo, setUserInfo } = useStore();
 
   const form = useForm({
     defaultValues: {
@@ -135,4 +135,6 @@ export function InformationStep({ onNext, onBack }: InformationStepProps) {
       </form>
     </div>
   );
-}
+};
+
+export default InformationStep;

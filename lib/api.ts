@@ -33,13 +33,9 @@ export async function fetchCartItems(): Promise<CartItem[]> {
 }
 
 export async function fetchCities(): Promise<City[]> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      if (Math.random() < 0.05) {
-        reject(new Error('Failed to load cities. Please try again.'));
-      } else {
-        resolve(cities);
-      }
+      resolve(cities);
     }, 1000);
   });
 }

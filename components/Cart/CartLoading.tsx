@@ -1,6 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function CartPageLoading() {
+export function CartLoading() {
   return (
     <>
       {[...Array(3)].map((_, i) => (

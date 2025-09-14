@@ -1,14 +1,13 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-
-interface CheckoutStepsProps {
-  currentStep: number;
-}
+import { useStore } from '@/lib/store';
 
 const steps = ['Information', 'Delivery', 'Summary'];
 
-export function CheckoutSteps({ currentStep }: CheckoutStepsProps) {
+export function CheckoutSteps() {
+  const currentStep = useStore((state) => state.currentStep);
+
   return (
     <div className="flex justify-center space-x-8 mb-8">
       {steps.map((step, index) => (

@@ -7,9 +7,9 @@ import { startCase } from 'lodash';
 import { useForm } from '@tanstack/react-form';
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { useStore } from '@/lib/store';
 import { fetchCities } from '@/lib/api';
 import { DeliveryTypes } from '@/lib/type';
-import { useCartStore } from '@/lib/store';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -20,14 +20,13 @@ import {
   SelectTrigger,
   SelectContent,
 } from '@/components/ui/select';
-import { DeliveryStepLoading } from '@/components/DeliveryStep/DeliveryStepLoading';
 
 interface DeliveryStepProps {
   onNext: () => void;
   onBack: () => void;
 }
 
-export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
+const DeliveryStep = ({ onNext, onBack }: DeliveryStepProps) => {
   const {
     cities,
     setCities,
@@ -35,12 +34,10 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
     selectedDelivery,
     setSelectedCity,
     setSelectedDelivery,
-  } = useCartStore();
+  } = useStore();
 
   const [currentCity, setCurrentCity] = useState<City | null>(selectedCity);
   const [currentDelivery, setCurrentDelivery] = useState<string>(selectedDelivery?.type || '');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const form = useForm({
     defaultValues: {
@@ -120,28 +117,11 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
 
   useEffect(() => {
     if (!cities.length) {
-      setError(null);
-
-      fetchCities()
-        .then((data) => {
-          setCities(data);
-        })
-        .catch((err) => setError(err.message))
-        .finally(() => setLoading(false));
-    } else {
-      setLoading(false);
+      fetchCities().then((data) => {
+        setCities(data);
+      });
     }
   }, [cities.length, setCities]);
-
-  if (loading) return <DeliveryStepLoading />;
-  if (error)
-    return (
-      <div className="flex flex-col items-center gap-4 text-center py-8 text-red-500">
-        {error}
-
-        <Button onClick={() => window.location.reload()}>Retry</Button>
-      </div>
-    );
 
   return (
     <div className="space-y-6">
@@ -214,4 +194,6 @@ export function DeliveryStep({ onNext, onBack }: DeliveryStepProps) {
       </form>
     </div>
   );
-}
+};
+
+export default DeliveryStep;

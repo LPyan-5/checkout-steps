@@ -1,6 +1,6 @@
 'use client';
 
-import { useCartStore } from '@/lib/store';
+import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -9,9 +9,9 @@ interface SummaryStepProps {
   onComplete: () => void;
 }
 
-export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
+export const SummaryStep = ({ onBack, onComplete }: SummaryStepProps) => {
   const { items, userInfo, selectedCity, selectedDelivery, getTotalPrice, getFinalTotal } =
-    useCartStore();
+    useStore();
 
   const itemsTotal = getTotalPrice();
   const deliveryPrice = selectedDelivery?.price || 0;
@@ -95,4 +95,6 @@ export function SummaryStep({ onBack, onComplete }: SummaryStepProps) {
       </div>
     </div>
   );
-}
+};
+
+export default SummaryStep;

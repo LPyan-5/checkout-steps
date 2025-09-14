@@ -1,4 +1,4 @@
-import type { CartItem, City, UserInfo } from '@/lib/type';
+import type { CartItem, City, PlaceOrderPayload, UserInfo } from '@/lib/type';
 
 import { cartItems, cities, mockUser } from '@/lib/data';
 
@@ -36,6 +36,17 @@ export async function fetchCities(): Promise<City[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(cities);
+    }, 1000);
+  });
+}
+
+export async function placeOrder(payload: PlaceOrderPayload) {
+  return new Promise<{ success: boolean; orderId: string }>((resolve) => {
+    setTimeout(() => {
+      resolve({
+        success: true,
+        orderId: `Order-${Math.floor(Math.random() * 100000)}`,
+      });
     }, 1000);
   });
 }

@@ -5,13 +5,15 @@ import { useStore } from '@/lib/store';
 import { fetchUserInfo } from '@/lib/api';
 
 export default function HydrateUser() {
-  const setUserInfo = useStore((s) => s.setUserInfo);
+  const { userInfo, setUserInfo } = useStore();
 
   useEffect(() => {
-    fetchUserInfo().then((user) => {
-      if (user) setUserInfo(user);
-    });
-  }, [setUserInfo]);
+    if (!userInfo?.firstName) {
+      fetchUserInfo().then((user) => {
+        if (user) setUserInfo(user);
+      });
+    }
+  }, [setUserInfo, userInfo]);
 
   return null;
 }

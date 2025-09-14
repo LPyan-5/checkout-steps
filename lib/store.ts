@@ -70,7 +70,9 @@ export const useStore = create<CartStore>()(
         const itemsTotal = state.getTotalPrice();
         const deliveryPrice = state.selectedDelivery?.price || 0;
 
-        return itemsTotal + deliveryPrice;
+        const finalTotal = itemsTotal + deliveryPrice;
+
+        return parseFloat(finalTotal.toFixed(2));
       },
     }),
     {

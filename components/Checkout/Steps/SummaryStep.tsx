@@ -1,5 +1,8 @@
 'use client';
 
+import { useState } from 'react';
+import { startCase } from 'lodash';
+import { placeOrder } from '@/lib/api';
 import { useStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -13,81 +16,106 @@ export const SummaryStep = ({ onBack, onComplete }: SummaryStepProps) => {
   const { items, userInfo, selectedCity, selectedDelivery, getTotalPrice, getFinalTotal } =
     useStore();
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const itemsTotal = getTotalPrice();
   const deliveryPrice = selectedDelivery?.price || 0;
   const finalTotal = getFinalTotal();
 
-  const handlePlaceOrder = () => {
-    // Mock API request - in real app this would send data to backend
-    console.log('Placing order:', {
-      items,
-      userInfo,
-      city: selectedCity?.name,
-      delivery: selectedDelivery,
-      total: finalTotal,
-    });
+  const handlePlaceOrder = async () => {
+    setLoading(true);
 
-    alert('Order placed successfully! (This is a mock implementation)');
-    onComplete();
+    try {
+      const response = await placeOrder({
+        items,
+        userInfo,
+        city: selectedCity?.name ?? null,
+        delivery: selectedDelivery,
+        total: finalTotal,
+      });
+
+      if (response.success) {
+        onComplete();
+      }
+    } catch (err) {
+      alert('Something went wrong while placing your order.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="space-y-6">
       <div className="space-y-4">
         <div>
+          <h3 className="font-medium mb-2">Products</h3>
+
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between space-x-4 py-2 bg-white rounded-lg"
+            >
+              <div className="flex items-center space-x-2">
+                <div className="w-14 h-14 bg-gray-300 rounded-lg overflow-hidden">
+                  <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                </div>
+
+                <div className="flex-1 min-w-0 gap-1">
+                  <h3 className="font-medium text-sm truncate mb-2">{item.name}</h3>
+
+                  <p className="text-xs text-gray-600">By: {item.manufacturer}</p>
+                </div>
+              </div>
+
+              <p>{item.price}$</p>
+            </div>
+          ))}
+        </div>
+
+        <Separator />
+
+        <div>
           <h3 className="font-medium mb-2">Customer Information</h3>
           <div className="text-sm text-gray-600 space-y-1">
             <p>
               {userInfo.firstName} {userInfo.lastName}
             </p>
+
             <p>{userInfo.email}</p>
           </div>
         </div>
 
         <Separator />
 
-        <div>
-          <h3 className="font-medium mb-2">Delivery Details</h3>
-          <div className="text-sm text-gray-600 space-y-1">
-            <p>City: {selectedCity?.name}</p>
-            <p>Delivery: {selectedDelivery?.label}</p>
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span>Products</span>
+            <span>${parseFloat(itemsTotal.toFixed(2))}</span>
           </div>
-        </div>
 
-        <Separator />
+          {selectedDelivery && selectedCity && (
+            <div className="flex justify-between text-sm">
+              <span>
+                {startCase(selectedDelivery?.type)} delivery to {selectedCity?.name ?? ''}
+              </span>
 
-        <div>
-          <h3 className="font-medium mb-2">Order Summary</h3>
-          <div className="space-y-2">
-            {items.map((item) => (
-              <div key={item.id} className="flex justify-between text-sm">
-                <span>
-                  {item.name} × {item.quantity || 1}
-                </span>
-                <span>${(item.price * (item.quantity || 1)).toFixed(2)}</span>
-              </div>
-            ))}
-            <Separator />
-            <div className="flex justify-between text-sm">
-              <span>Subtotal:</span>
-              <span>${itemsTotal.toFixed(2)}</span>
+              <span>
+                {deliveryPrice === 0 ? 'Free' : `$${parseFloat(deliveryPrice.toFixed(2))}`}
+              </span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span>Delivery:</span>
-              <span>{deliveryPrice === 0 ? 'Free' : `$${deliveryPrice.toFixed(2)}`}</span>
-            </div>
-            <Separator />
-            <div className="flex justify-between font-medium">
-              <span>Total:</span>
-              <span>${finalTotal.toFixed(2)}</span>
-            </div>
+          )}
+
+          <div className="flex justify-between font-medium text-lg">
+            <span>Total:</span>
+
+            <span>${finalTotal}</span>
           </div>
         </div>
       </div>
 
       <div className="space-y-3 pt-4">
         <Button onClick={handlePlaceOrder} className="w-full bg-black text-white hover:bg-gray-800">
-          Place Order
+          {loading ? 'Processing...' : 'Place Order'}
         </Button>
         <Button type="button" variant="ghost" onClick={onBack} className="w-full">
           Back to delivery

@@ -37,3 +37,15 @@ export type DeliveryOption = {
   disabled: boolean;
   label: ReactElement;
 };
+
+export type PlaceOrderPayload = {
+  items: CartItem[];
+  userInfo: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+  city: string | null;
+  delivery: DeliveryOption | null;
+  total: number;
+};

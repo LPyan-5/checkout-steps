@@ -17,7 +17,8 @@ const CartPage = () => {
 
   const totalPrice = useMemo(() => {
     const total = items.reduce((sum, item) => sum + item.price * (item.quantity || 1), 0);
-    return total.toFixed(2);
+
+    return parseFloat(total.toFixed(2));
   }, [items]);
 
   useEffect(() => {

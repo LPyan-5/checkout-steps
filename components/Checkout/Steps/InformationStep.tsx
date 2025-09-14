@@ -56,9 +56,9 @@ const InformationStep = ({ onNext, onBack }: InformationStepProps) => {
               <Input
                 id={field.name}
                 value={field.state.value}
+                className={field.state.meta.errors.length > 0 ? 'border-red-500' : ''}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
-                className={field.state.meta.errors.length > 0 ? 'border-red-500' : ''}
               />
               {field.state.meta.errors.length > 0 && (
                 <p className="text-sm text-red-500">{field.state.meta.errors[0]}</p>
@@ -80,9 +80,9 @@ const InformationStep = ({ onNext, onBack }: InformationStepProps) => {
               <Input
                 id={field.name}
                 value={field.state.value}
+                className={field.state.meta.errors.length > 0 ? 'border-red-500' : ''}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
-                className={field.state.meta.errors.length > 0 ? 'border-red-500' : ''}
               />
               {field.state.meta.errors.length > 0 && (
                 <p className="text-sm text-red-500">{field.state.meta.errors[0]}</p>
@@ -111,9 +111,9 @@ const InformationStep = ({ onNext, onBack }: InformationStepProps) => {
                 id={field.name}
                 type="email"
                 value={field.state.value}
+                className={field.state.meta.errors.length > 0 ? 'border-red-500' : ''}
                 onBlur={field.handleBlur}
                 onChange={(e) => field.handleChange(e.target.value)}
-                className={field.state.meta.errors.length > 0 ? 'border-red-500' : ''}
               />
 
               {field.state.meta.errors.length > 0 && (

@@ -20,7 +20,9 @@ export default function CheckoutPage() {
   const handleBack = () => {
     if (currentStep === 0) {
       router.push('/cart');
+
       localStorage.removeItem('checkout-storage');
+      resetCheckout();
     } else {
       prevStep();
     }
